@@ -1,0 +1,114 @@
+<html>
+
+<head>
+	<title>Loading...</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Patua+One" rel="stylesheet">
+	<!-- Adapted from http://pathgather.github.io/please-wait/ -->
+	<style>
+		body {
+			background-color: #ff5252;
+			color: #fff;
+		}
+
+		h1 {
+			margin-top: 20vh;
+			margin-bottom: 2em;
+			font-family: 'Patua One';
+			font-weight: normal;
+			text-align: center;
+		}
+
+		.sk-spinner-double-bounce.sk-spinner {
+			width: 40px;
+			height: 40px;
+			position: relative;
+			margin: 0 auto;
+		}
+
+		.sk-spinner-double-bounce .sk-double-bounce1,
+		.sk-spinner-double-bounce .sk-double-bounce2 {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			background-color: #fff;
+			opacity: 0.6;
+			position: absolute;
+			top: 0;
+			left: 0;
+			-webkit-animation: sk-doubleBounce 2s infinite ease-in-out;
+			animation: sk-doubleBounce 2s infinite ease-in-out;
+		}
+
+		.sk-spinner-double-bounce .sk-double-bounce2 {
+			-webkit-animation-delay: -1s;
+			animation-delay: -1s;
+		}
+
+		@-webkit-keyframes sk-doubleBounce {
+			0%,
+			100% {
+				-webkit-transform: scale(0);
+				transform: scale(0);
+			}
+			50% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+			}
+		}
+
+		@keyframes sk-doubleBounce {
+			0%,
+			100% {
+				-webkit-transform: scale(0);
+				transform: scale(0);
+			}
+			50% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>OpenText Media Management is loading...</h1>
+	<aside class="sk-spinner sk-spinner-double-bounce">
+		<div class="sk-double-bounce1"></div>
+		<div class="sk-double-bounce2"></div>
+	</aside>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script>
+		function poll() {
+			$.ajax({
+				url: '/otmm/ux-html/',
+				method: 'HEAD',
+				cache: false,
+				success: function () {
+					$.ajax({
+						url: '/otmm/ux-html/',
+						cache: false,
+						success: function (response) {
+							if (response.indexOf('.js') === -1) { // If there’s no JavaScript on the page, it’s an error page; keep waiting
+								setTimeout(poll, 2000);
+							} else {
+								window.location.reload(true);
+							}
+						},
+						error: function () {
+							setTimeout(poll, 2000);
+						}
+					});
+				},
+				error: function () {
+					setTimeout(poll, 2000);
+				}
+			});
+		}
+		poll();
+	</script>
+</body>
+
+</html>

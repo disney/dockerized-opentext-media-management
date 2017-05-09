@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.spring.platform</groupId>
+        <artifactId>platform-bom</artifactId>
+        <version>2.0.7.RELEASE</version>
+    </parent>
+
+    <groupId>com.disney.opentext</groupId>
+    <artifactId>opentext-docker-utilities-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>OpenText Docker Utilities Parent POM</name>
+
+    <properties>
+        <!-- Alphabetical project properties -->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Alphabetical runtime dependencies -->
+
+        <!-- Alphabetical plugin dependencies -->
+        <httpclient.version>4.5.2</httpclient.version>
+        <httpcore.version>4.4.5</httpcore.version>
+        <minimal-json.version>0.9.4</minimal-json.version>
+    </properties>
+
+    <modules>
+        <module>opentext-directory-services-http-endpoints-bridge</module>
+    </modules>
+
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <distributionManagement>
+                <repository>
+                    <id>distribute</id>
+                    <name>Nexus Releases repository</name>
+                    <url>http://ssse-nexus.cloud.corp.dig.com:8081/content/repositories/media-vault-releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>distribute</id>
+                    <name>Nexus SNAPSHOTs repository</name>
+                    <url>http://ssse-nexus.cloud.corp.dig.com:8081/content/repositories/media-vault-snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>

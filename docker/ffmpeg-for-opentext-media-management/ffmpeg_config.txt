@@ -1,0 +1,102 @@
+# ----------------------------------------------------------------------------
+# Copyright 2017 by Open Text. All rights reserved.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# IMPORTANT:
+#
+# This is the FFmpeg configuration file. Please go through this file and
+# assign values that are relevant to your installation.  Please make sure you
+# read the description of ALL the variables.
+
+#--------------------------------------------------------------------------------
+# Installation location for FFmpeg, for window use double back slashes
+# to specify the path.
+# Example: C:\\FFmpegTranscoder (windows)
+# Example: /home/FFmpegTranscoder (Linux)
+#--------------------------------------------------------------------------------
+
+FFMPEG_HOME = /opt/ffmpeg-transcoder
+
+# ----------------------------------------------------------------------------
+# CHOSEN_INSTALL_SET
+# This variable will be used to select the FFmpeg transcoder features.
+# SchemaandService : This installs both schema and FFmpeg transcode service.
+# ServiceOnly : This installs only FFmpeg transcode service without schema.
+# ----------------------------------------------------------------------------
+
+CHOSEN_INSTALL_SET = ServiceOnly
+
+#--------------------------------------------------------------------------------
+# Set IS_ORACLE_SELECTED = 1 to use Oracle database.
+#--------------------------------------------------------------------------------
+
+IS_ORACLE_SELECTED =
+
+# Fill the below property with the oracle DB service name.
+ORACLE_SERVICE_NAME =
+
+#--------------------------------------------------------------------------------
+# Set IS_SQLSERVER_SELECTED = 1 to use SqlServer database.
+#--------------------------------------------------------------------------------
+
+IS_SQLSERVER_SELECTED =
+
+#--------------------------------------------------------------------------------
+# Set IS_POSTGRESQL_SELECTED = 1 to use PostgreSql database.
+#--------------------------------------------------------------------------------
+
+IS_POSTGRESQL_SELECTED = 1
+
+# Fill the below property with the PostgreSql DB name.
+POSTGRESQL_DB_NAME = ffmpeg
+
+#--------------------------------------------------------------------------------
+#The below database properties should be provided for all the DB types.
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+#DB server host name
+#--------------------------------------------------------------------------------
+
+DB_HOST_NAME = postgres
+
+#--------------------------------------------------------------------------------
+#DB Server port
+#--------------------------------------------------------------------------------
+
+DB_PORT = 5432
+
+#--------------------------------------------------------------------------------
+#DB username
+#--------------------------------------------------------------------------------
+
+FFMPEG_DB_USER = ffmpeg
+
+#--------------------------------------------------------------------------------
+#DB User password
+#--------------------------------------------------------------------------------
+
+FFMPEG_DB_PWD = MediaVault
+
+#--------------------------------------------------------------------------------
+# Set this value to 1, to test db connection before proceeding with
+# installation. Set to 0 if database connection shouldn't be tested during installation
+# Recommended value is 1.
+#--------------------------------------------------------------------------------
+
+IS_TEST_DB = 0
+
+#--------------------------------------------------------------------------------
+# Set the shutdown type of transcode service.
+# To set shutdown mode as Complete set IMMEDIATE_SHUTDOWN = 1.
+# To set shutdown mode as Immediate set COMPLETE_SHUTDOWN = 1.
+#--------------------------------------------------------------------------------
+
+IMMEDIATE_SHUTDOWN =
+COMPLETE_SHUTDOWN = 1
+
+#--------------------------------------------------------------------------------
+# Set the FFmpeg transode service port.
+#--------------------------------------------------------------------------------
+
+TRANSCODE_PORT= 9000

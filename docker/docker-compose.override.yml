@@ -1,0 +1,140 @@
+# This file is automatically loaded in addition to the regular docker-compose.yml
+# It is intended for localhost development; see https://docs.docker.com/compose/extends/#different-environments
+
+version: '3'
+
+services:
+  default:
+    # This container exists only to supply default values for the other containers to inherit
+    # It serves no function in the app itself, and exits immediately on startup
+    image: alpine
+    entrypoint: ['/bin/sh']
+    environment: &default_environment
+      #
+      # Common across all environments
+      #
+      # From docker/.env:
+      DOCKER_MODE: $DOCKER_MODE
+      OBJECTS_ROOT_URL: $OBJECTS_ROOT_URL
+      # General
+      ADMIN_EMAIL_ADDRESS: noreply@mailinator.com
+      EMAIL_HOST: smtp.mailinator.com
+      EMAIL_PORT: 25
+      # Docker
+      DEPLOY_CUSTOMIZATIONS: 'true' # Include our customizations, or start up an out-of-the-box OpenText Media Management app
+      # Postgres
+      POSTGRES_SERVER: postgres # Hostname of Postgres server
+      POSTGRES_USER: postgres
+
+      #
+      # Specific to this environment
+      #
+      # General
+      APP_ROOT_URL: https://localhost
+      APP_SERVER: localhost
+      DOCKER_MACHINE: localhost
+      KEYSTORE_PASSWORD: MediaVault
+      # OpenText Media Management
+      OTMM_ADMIN_PASSWORD: MediaVault # Password of `tsuper`
+      # Enterprise Process Server
+      EPS_ADMIN_PASSWORD: MediaVault # Password of `ProcessService`
+      UMS_OTDS_PASSWORD: MediaVault # Password of `OTDSConnector`
+      # OpenText Directory Services
+      OTDS_ADMIN_PASSWORD: MediaVault1! # Password of `otadmin@otds.admin` user; note that password must contain at least one number and one symbol
+      # Postgres
+      POSTGRES_PASSWORD: MediaVault # Password of `postgres` user
+      DATABASE_USER_PASSWORD: MediaVault # Password of `tsuper` and `ffmpeg`
+      # Solr
+      SOLR_ADMIN_PASSWORD: MediaVault # Password of `solr` user via Nginx proxy
+
+
+  postgres:
+    volumes:
+      - repository:/opt/opentext-media-management-repository
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      <<: *default_environment
+      CREATE_TEST_DATA_ARCHIVE: 'false'
+
+  solr:
+    volumes:
+      - solr-index:/opt/solr-index
+      - repository:/opt/opentext-media-management-repository
+    environment:
+      <<: *default_environment
+
+  ffmpeg:
+    volumes:
+      - repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+    environment:
+      <<: *default_environment
+
+  nginx-for-repository:
+    volumes:
+      - repository:/usr/share/nginx/html
+    environment:
+      <<: *default_environment
+
+  opentext-directory-services:
+    volumes:
+      - utilities:/opt/utilities
+      - opentext-directory-services-data:/usr/local/OTDS/opendj
+    environment:
+      <<: *default_environment
+      JAVA_OPTS: '-Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n'
+      CREATE_INSTALLED_FILES_ARCHIVE: 'false'
+      CREATE_TEST_DATA_ARCHIVE: 'false'
+    expose:
+      - '5005'
+    ports:
+      - '5010:5005'
+
+  opentext-media-management-core-app:
+    volumes:
+      - utilities:/opt/utilities
+      - repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+    environment:
+      <<: *default_environment
+      JAVA_OPTS: '-Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n'
+      CREATE_INSTALLED_FILES_ARCHIVE: 'false'
+      CREATE_TEST_DATA_ARCHIVE: 'false'
+    expose:
+      - '5005'
+    ports:
+      - '5019:5005'
+
+  opentext-media-management-indexer:
+    volumes:
+      - utilities:/opt/utilities
+      - repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+    environment:
+      <<: *default_environment
+
+  nginx-for-proxy:
+    environment:
+      <<: *default_environment
+      SSL_CERTIFICATE: |
+        # Generate localhost.pem via /docker/nginx-for-proxy/ssl/README.md and paste its contents here
+      SSL_CERTIFICATE_KEY: |
+        # Generate localhost.key via /docker/nginx-for-proxy/ssl/README.md and paste its contents here
+      SSL_DHPARAM: |
+        # Generate dhparam.pem via /docker/nginx-for-proxy/ssl/README.md and paste its contents here
+
+  maildev:
+    environment:
+      <<: *default_environment
+      DISABLE_OUTBOUND_EMAIL: 'true'
+
+  opentext-utilities:
+    volumes:
+      - utilities:/opt/utilities
+    environment:
+      <<: *default_environment
+
+
+volumes:
+  # $TEAMS_REPOSITORY_HOME, uploaded assets’ files
+  repository:

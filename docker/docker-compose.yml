@@ -1,0 +1,159 @@
+# This is the base docker-compose configuration for all environments, both localhost and hosted (non-localhost) environments
+# In addition to this file, on localhost docker-compose.override.yml is loaded
+# For hosted environments, both this file, docker-compose.hosted.yml, and another environment-specific file from deploy/docker-compose/ are loaded
+
+version: '3'
+
+services:
+  postgres:
+    image: postgres-for-opentext-media-management:$DOCKER_VERSION
+    hostname: postgres
+    mac_address: 'aa:aa:aa:aa:aa:01'
+    build:
+      context: ./postgres-for-opentext-media-management
+      args:
+        - OBJECTS_ROOT_URL
+    expose:
+      - '5432'
+    ports:
+      - '5432:5432'
+
+  solr:
+    image: solr-for-opentext-media-management:$DOCKER_VERSION
+    hostname: solr
+    mac_address: 'aa:aa:aa:aa:aa:02'
+    build:
+      context: ./solr-for-opentext-media-management
+      args:
+        - OBJECTS_ROOT_URL
+    expose:
+      - '8983'
+
+
+  ffmpeg:
+    image: ffmpeg-for-opentext-media-management:$DOCKER_VERSION
+    hostname: ffmpeg
+    mac_address: 'aa:aa:aa:aa:aa:03'
+    build:
+      context: ./ffmpeg-for-opentext-media-management
+      args:
+        - OBJECTS_ROOT_URL
+    links:
+      - opentext-media-management-core-app
+    expose:
+      - '9000'
+
+
+  nginx-for-repository:
+    # We’re using the Nginx image as is, to serve static assets from the repository
+    image: nginx:alpine
+    hostname: nginx-for-repository
+    mac_address: 'aa:aa:aa:aa:aa:04'
+    expose:
+      - '80' # Routed via nginx-for-proxy
+
+
+  opentext-directory-services:
+    image: opentext-directory-services-$DOCKER_MODE:$DOCKER_VERSION
+    hostname: opentext-directory-services
+    mac_address: 'aa:aa:aa:aa:aa:05'
+    build:
+      context: ./opentext-directory-services
+      args:
+        - DOCKER_MODE
+        - OBJECTS_ROOT_URL
+    volumes:
+      # Map in host OS random number generator, so that we get sufficient entropy for usable random numbers inside the Docker containers; http://stackoverflow.com/a/26024403/223225
+      - /dev/urandom:/dev/random
+    expose:
+      - '8080'
+
+
+  opentext-media-management-core-app:
+    image: opentext-media-management-$DOCKER_MODE:$DOCKER_VERSION
+    hostname: opentext-media-management-core-app
+    mac_address: 'aa:aa:aa:aa:aa:07'
+    build:
+      context: ./opentext-media-management
+      args:
+        - DOCKER_MODE
+        - OBJECTS_ROOT_URL
+    volumes:
+      - /dev/urandom:/dev/random
+    environment:
+      OTMM_MODE: core-app
+    links:
+      - postgres
+      - opentext-directory-services
+    expose:
+      - '11090'
+      - '11099'
+
+
+  opentext-media-management-indexer:
+    image: opentext-media-management-$DOCKER_MODE:$DOCKER_VERSION
+    hostname: opentext-media-management-indexer
+    mac_address: 'aa:aa:aa:aa:aa:11'
+    build:
+      context: ./opentext-media-management
+      args:
+        - DOCKER_MODE
+        - OBJECTS_ROOT_URL
+    volumes:
+      - /dev/urandom:/dev/random
+    environment:
+      OTMM_MODE: indexer
+    links:
+      - postgres
+      - opentext-directory-services
+      - opentext-media-management-core-app
+
+
+  nginx-for-proxy:
+    image: nginx-for-proxy:$DOCKER_VERSION
+    hostname: nginx-for-proxy
+    mac_address: 'aa:aa:aa:aa:aa:12'
+    build:
+      context: ./nginx-for-proxy
+    links:
+      - opentext-media-management-core-app
+      - nginx-for-repository
+    ports:
+      - '80:80'
+      - '443:443'
+
+
+  maildev:
+    image: maildev:$DOCKER_VERSION
+    hostname: maildev
+    mac_address: 'aa:aa:aa:aa:aa:13'
+    build:
+      context: ./maildev
+    expose:
+      - '25'
+      - '80' # Routed via nginx-for-proxy
+
+
+  opentext-utilities:
+    image: opentext-utilities:$DOCKER_VERSION
+    hostname: opentext-utilities
+    mac_address: 'aa:aa:aa:aa:aa:14'
+    build:
+      context: ./opentext-utilities
+
+
+volumes:
+  # Postgres database files
+  postgres-data:
+
+  # Solr database index
+  solr-index:
+
+  # Work folder for video during processing
+  video-staging:
+
+  # OpenText Directory Services file-based database
+  opentext-directory-services-data:
+
+  # OpenText utilities
+  utilities:

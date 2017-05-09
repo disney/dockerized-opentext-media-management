@@ -1,0 +1,858 @@
+# ----------------------------------------------------------------------------
+# Copyright 2002-2013 by Open Text. All rights reserved.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# IMPORTANT:
+#
+# This is the Media Management configuration file. Please go through this file and
+# assign values that are relevant to your installation.  Please make sure you
+# read the description of ALL the variables.
+#
+# Some of the variables are prefilled with common values for convenience, but
+# please still review them to ensure they are appropriate for your
+# installation.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# CHOSEN_INSTALL_SET
+# While using Silent mode this variable will be used to select the Media Management application
+# features.
+# SilentAppOnly : This option can be used to install only application with out schema.
+# Silent : This option can be used to install application and schema.
+# ----------------------------------------------------------------------------
+
+#CHOSEN_INSTALL_SET=SilentAppOnly
+CHOSEN_INSTALL_SET=Silent
+
+# ----------------------------------------------------------------------------
+# INSTALLER_UI
+# This must be uncommented when we install in Silent mode
+# NOTE: Please also check with Entry "RESTART_SYSTEM" to Toggle Automatic Restart during Silent Install
+# ----------------------------------------------------------------------------
+
+INSTALLER_UI=silent
+
+# ----------------------------------------------------------------------------------------------
+# The Flag is only applicable when OTMM is installed in silent mode or console mode.
+# To Restart system automatically after installation gets completed in silent mode or console mode, set RESTART_SYSTEM to 1
+# If user wishes not to restart system set RESTART_SYSTEM to 0
+# ----------------------------------------------------------------------------------------------
+
+RESTART_SYSTEM=1
+
+# ----------------------------------------------------------------------------------------------
+# INSTALL OR UPGRADE OTMM
+# To install OTMM set the property INSTALL_OTMM=1
+# To upgrade OTMM set the property UPGRADE_OTMM=1
+# ----------------------------------------------------------------------------------------------
+INSTALL_OTMM=1
+UPGRADE_OTMM=
+
+# --------------------------------------------------------------------------------------------------------------
+# Java Configuration
+#
+# Update the variable JAVA_CUSTOM_PATH with JAVA_HOME path
+# For example, JAVA_CUSTOM_PATH=D:\\DevTools\\Java\\jdk1.6.0_06
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# --------------------------------------------------------------------------------------------------------------
+
+JAVA_CUSTOM_PATH=/usr/lib/jvm/java
+
+#-----------------------------------------------------------------------------------------------------------------
+# Specify Application Server Configuration
+#
+# If Application Server is JBoss EAP, then uncomment JBOSS_EAP=1
+# If Application Server is WildFly, then uncomment JBOSS_COMMUNITY=1
+#
+#-----------------------------------------------------------------------------------------------------------------
+
+#JBOSS_EAP=1
+JBOSS_COMMUNITY=1
+#TOMEE_PLUS=1
+
+# ----------------------------------------------------------------------------
+# TO INSTALL NEW TOMEE
+#
+# To install new TOMEE along with this product ,then uncomment EMBED_TOMEE=1
+# This setting will only be honoured when TOMEE_PLUS is set to 1
+# ----------------------------------------------------------------------------
+
+#EMBED_TOMEE=1
+
+# --------------------------------------------------------------------------------------------------------------
+# JBoss Configuration
+#
+# Update the variable JBOSS_CUSTOM_PATH with JBOSS_HOME path
+# For example, JBOSS_CUSTOM_PATH=D:\\DevTools\\Java\\jboss-4.2.2.GA
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# --------------------------------------------------------------------------------------------------------------
+
+JBOSS_CUSTOM_PATH=/opt/jboss/wildfly
+
+# --------------------------------------------------------------------------------------------------------------
+# TomEE Configuration
+#
+# Update the variable TOMEE_CUSTOM_PATH with TOMEE_HOME path
+# For example, TOMEE_CUSTOM_PATH=E:\\Devtools\\apache-tomee-plus-7.0.1
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# --------------------------------------------------------------------------------------------------------------
+
+#TOMEE_CUSTOM_PATH=<TOMEE_HOME>
+
+
+# ------------------------------------------------------------------------------------
+# INSTALL_SCHEMA_SELECTED
+# When using console mode, this variable should be set if the schema is to be created.
+# ------------------------------------------------------------------------------------
+
+INSTALL_SCHEMA_SELECTED=1
+
+#-----------------------------------------------------------------------------------------
+# Database selection
+# To install with a SQL Server database, uncomment the variables DB_SELECTED_SQLSERVER and DB_SELECTED_POSTGRESQL
+# To install with an Oracle database, uncomment the variables DB_SELECTED_ORACLE and DB_SELECTED_POSTGRESQL
+# These are mutually exclusive.  Only one of them should be uncommented.
+# ----------------------------------------------------------------------------------------
+
+#DB_SELECTED_SQLSERVER=1
+#DB_SELECTED_ORACLE=1
+DB_SELECTED_POSTGRESQL=1
+
+# -------------------------------------------------------------------------------------------------------------
+# USER_INSTALL_DIR
+#
+# This is a required field.
+#
+# This is the directory where the OTMM will be installed.Minimum space requirement for OTMM INSTALLATION is 2 GB.
+#
+# The value of this variables will end up as TEAMS_HOME in environment variable.
+#
+# WARNING: do not use a path containing the word "data" or "teams" or path containing spaces
+#
+# Example: /u01/pkgs/mediamanagement
+# Example: c:\\tools\\mediamanagement
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# ------------------------------------------------------------------------------------------------------------
+
+USER_INSTALL_DIR=/opt/opentext-media-management
+
+# -------------------------------------------------------------------------------------------------------------
+# TEAMS_REPOSITORY_HOME
+#
+# This is an optional field
+#
+# If the content of the repository will reside in a different location from
+# the rest of the Media Management software,then Specify the location in TEAMS_REPOSITORY_HOME variable
+#
+# Example: /u01/pkgs/mediamanagement/repository
+# Example: c:\\tools\\mediamanagement\repository
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# ---------------------------------------------------------------------------------------------------------------
+
+TEAMS_REPOSITORY_HOME=/opt/opentext-media-management-repository
+
+# ----------------------------------------------------------------------------
+# MAIL_SERVER
+#
+# This is an optional field.
+#
+# Specify the  Hostname or IP address of your mail server.  This will be used
+# to send mail from the Media Management software.
+# ----------------------------------------------------------------------------
+
+MAIL_SERVER=maildev
+
+# ----------------------------------------------------------------------------
+# WEB_APPS_BASE_URL
+# -----------------------
+# This is a required field.
+#
+# If you do not have all the information needed at this time,
+# you can manually modify the WEB_APPS_BASE_URL setting in
+# Media Management server Tresource file later by following instructions in
+# Media Management Administrator's Guide.
+#
+# Enter the root of the URL for Media Management web applications
+# This should include the protocol (typically http:), the host (e.g.
+# myhost.ourco.com) and the port number (e.g. 11090).
+#
+# Do NOT include a web application name in the URL.
+#
+# Example:  http://myhost.ourco.com:11090
+# ----------------------------------------------------------------------------
+
+WEB_APPS_BASE_URL=http://opentext-media-management-core-app:11090
+
+# ----------------------------------------------------------------------------
+# ADMIN_EMAIL_ADDRESS
+# -----------------------
+# This is a required field.
+#
+# If you do not have all the information needed at this time,
+# you can manually modify the ADMIN_EMAIL_ADDRESS setting in
+# Media Management server Tresource file later by following instructions in
+# Media Management Administrator's Guide.
+#
+# Enter the email address for the system administrator.
+#
+# Example:  mediamanagement@opentext.com
+# ----------------------------------------------------------------------------
+
+ADMIN_EMAIL_ADDRESS=webmaster@mediavault.disney.com
+
+# ----------------------------------------------------------------------------
+# TEAMS_SERVER_DEBUG_LEVEL (SERVER DEBUG LEVEL)
+#
+# This is a required field.  It is used to configure the amount of log output
+# for the legacy servers and server utilities.
+#
+# TEAMS_SERVER_DEBUG_LEVEL <=5---->All Debug,Info,Warn and Error messages will be logged.
+# TEAMS_SERVER_DEBUG_LEVEL <=3---->All Info, Warn and Error messages will be logged.
+# TEAMS_SERVER_DEBUG_LEVEL <=1---->All Warn and Error messages will be logged.
+#
+# NOTE: This setting is used for console mode.  When using the GUI installer,
+# this value will needs to be re-entered via the GUI.
+# ----------------------------------------------------------------------------
+
+TEAMS_SERVER_DEBUG_LEVEL=1
+
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# ORACLE DATABASE SELECTIONS
+# FILL OUT THE FOLLOWING VALUES FOR USE WITH ORACLE
+# If you are installing with a database other than Oracle, these
+# values can be left blank.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# ORACLE_SERVICE_NAME
+#
+# This is a required field for Oracle.
+#
+# Specify the Oracle Servicename for the Media Management database instance created during
+# the pre-installation activities. This Oracle instance should be up and
+# running.
+# ----------------------------------------------------------------------------
+
+ORACLE_SERVICE_NAME=
+
+# ----------------------------------------------------------------------------
+# ORACLE_SERVER
+#
+# This is a required field for Oracle.
+#
+# Specify the hostname of the server on which Oracle Server is running.
+#
+# Example:OracleHostName
+# ----------------------------------------------------------------------------
+
+ORACLE_SERVER=
+
+# ----------------------------------------------------------------------------
+# ORACLE_PORT
+#
+# This is a required field for Oracle.
+#
+# Specify the listening port number to connect to Oracle server instance.
+#
+# Example:1521
+# ----------------------------------------------------------------------------
+
+ORACLE_PORT=
+
+# ----------------------------------------------------------------------------
+# TEAMSDB_ADMIN
+#
+# This is a required field for Oracle.
+#
+# Enter a string for the Media Management Database administrator.  This id will be
+# created in the Oracle database and will be the owner of the Media Management
+# database schema.
+#
+# NOTE: Assigning this variable to "teams_adm" is not allowed.
+# ----------------------------------------------------------------------------
+
+TEAMSDB_ADMIN=
+
+# ----------------------------------------------------------------------------
+# TEAMSDB_ADMIN_PW
+#
+# This is a required field for Oracle.
+#
+# Enter the password for the Media Management database administrator.
+# ----------------------------------------------------------------------------
+
+TEAMSDB_ADMIN_PW=
+
+# ----------------------------------------------------------------------------
+# CREATE_TABLE_SPACE
+#
+# This is a required field for Oracle.
+#
+# If you want the installation to create tablespaces using the default sizes,
+# then assign this variable to "1" and also assign the TEAMSDB_DATA_DIR and
+# the TEAMSDB_IDX_DIR variables.  In this case your database schema, will be
+# configured for approximately 10,000 assets.
+#
+# If you would rather create your own tablespaces, assign "0" to this
+# variable and skip to ORACLE_DEFTAB.  Also, consult your ORACLE
+# administrator to customize the files required for installation that match
+# your requirements.
+#
+# NOTE: This setting is used for console mode.  When using the GUI installer,
+# this value will need to be re-entered via the GUI.
+# ----------------------------------------------------------------------------
+
+CREATE_TABLE_SPACE=
+
+# ----------------------------------------------------------------------------
+# TEAMSDB_DATA_DIR (DATA FILE DIRECTORY)
+#
+# This is a required field if CREATE_TABLE_SPACE is set to "1".
+#
+# Specify the directory where you wish to place the data files. Note the disk
+# space requirement for these files. (Approximately 700 MB of free space)
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-C:\\app\\Administrator\\oradata\\DBOTMM73
+# ----------------------------------------------------------------------------
+
+TEAMSDB_DATA_DIR=
+
+# ----------------------------------------------------------------------------
+# TEAMSDB_IDX_DIR (INDEX FILE DIRECTORY)
+#
+# This is a required field if CREATE_TABLE_SPACE is set to "1".
+#
+# Specify the directory where you wish to place the index files. Note the disk
+# space requirement for these files. (Approximately 200 MB of free space)
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-C:\\app\\Administrator\\oradata\\DBOTMM73
+# ----------------------------------------------------------------------------
+
+TEAMSDB_IDX_DIR=
+
+# ----------------------------------------------------------------------------
+# ORACLE_DEFTAB
+#
+# This is a required field for Oracle.
+#
+# Specify the default tablespace for Oracle for users.  This tablespace must
+# exist.  You should consult your Oracle administrator for this information.
+#
+# Example: "users" is typically the Oracle default tablespace.
+# ----------------------------------------------------------------------------
+
+ORACLE_DEFTAB=users
+
+# ----------------------------------------------------------------------------
+# ORACLE_TEMPTAB
+#
+# This is a required field for Oracle.
+#
+# Specify the temporary tablespace for ORACLE. You should consult your Oracle
+# administrator for this information.
+#
+# Example: "temp" is typically the Oracle temporary tablespace.
+# ----------------------------------------------------------------------------
+
+ORACLE_TEMPTAB=temp
+
+# ----------------------------------------------------------------------------
+# ORACLE_SYSADMIN
+#
+# This is a required field for Oracle.
+#
+# Specify the Oracle system administrator account.  (This is different from
+# TEAMSDB_ADMIN).
+#
+# Example: "system" is typically the Oracle default.
+# ----------------------------------------------------------------------------
+
+ORACLE_SYSADMIN=system
+
+# ----------------------------------------------------------------------------
+# ORACLE_SYSADMIN_PW
+#
+# This is a required field for Oracle.
+#
+# Specify the password for the Oracle administrator account.
+#
+# Example: "manager" is typically the Oracle default.
+# ----------------------------------------------------------------------------
+
+ORACLE_SYSADMIN_PW=
+
+# ----------------------------------------------------------------------------
+# END OF ORACLE DATABASE SELECTIONS
+# ----------------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------------
+# SQL SERVER DATABASE SELECTIONS
+# FILL OUT THE FOLLOWING VALUES FOR USE WITH SQL SERVER
+#
+# If you are installing with a database other than SQL Server, these
+# values can be left blank.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_ADMIN
+#
+# This is a required field for SQL Server.
+#
+# Specify the login id for the administrator account.
+#
+# Example: "sa" is typically the default.
+# ----------------------------------------------------------------------------
+
+SQLSERVER_ADMIN=sa
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_ADMIN_PW
+#
+# This is a required field for SQL Server.
+#
+# Specify the password for the administrator account.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_ADMIN_PW=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_SERVER
+#
+# This is a required field for SQL Server.
+#
+# Specify the hostname of the server on which SQL Server is running.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_SERVER=
+
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_PORT
+#
+# This is a required field for SQL Server.
+#
+# Specify the TCP/IP port to connect to the named instance.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_PORT=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_USER
+#
+# This is a required field for SQL Server.
+#
+# Specify the name of the SQL Server user that the Media Management software will
+# connect as.
+#
+# NOTE:  This user is created during the installation process.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_USER=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_USER_PW
+#
+# This is a required field for SQL Server.
+#
+# Specify the password for the SQLSERVER_USER.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_USER_PW=
+
+# ----------------------------------------------------------------------------
+# DATABASE_NAME
+#
+# This is a required field for SQL Server.
+#
+# Specify the name of the database that the Media Management software will use.
+#
+# NOTE: This database is created during the installation process.
+
+# ----------------------------------------------------------------------------
+
+DATABASE_NAME=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_DATA_DIR
+#
+# This is a required field for SQL Server.
+#
+# Specify the path for the data files to reside on the database server .
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.73SQL\\MSSQL\\DATA
+# ----------------------------------------------------------------------------
+
+SQLSERVER_DATA_DIR=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_LOG_DIR
+#
+# This is a required field for SQL Server.
+#
+# specify the path for the transaction log files to reside on the database server
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-C:\\Program Files\\Microsoft SQL Server\\MSSQL10_50.73SQL\\MSSQL\\LOG
+# ----------------------------------------------------------------------------
+
+SQLSERVER_LOG_DIR=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_DATA_SIZE
+#
+# This is a required field for SQL Server.
+#
+# Specify the size for the data files in GigaBytes.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_DATA_SIZE=
+
+# ----------------------------------------------------------------------------
+# SQLSERVER_LOG_SIZE
+#
+# This is a required field for SQL Server.
+#
+# Specify the size for the transaction log files in GigaBytes.
+#
+# ----------------------------------------------------------------------------
+
+SQLSERVER_LOG_SIZE=
+
+# ----------------------------------------------------------------------------
+# END OF SQL SERVER DATABASE SELECTIONS
+# ----------------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL DATABASE SELECTIONS
+# FILL OUT THE FOLLOWING VALUES FOR USE WITH POSTGRESQL
+# If you are installing with a database other than PostgreSQL, these
+# values can be left blank.
+# ----------------------------------------------------------------------------
+
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_SERVER
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the hostname of the server on which PostgreSQL Server is running.
+#
+# Example:PostgreSQLHostName
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_SERVER=postgres
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_PORT
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the listening port number to connect to PostgreSQL server instance.
+#
+# Example:5432
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_PORT=5432
+
+# ----------------------------------------------------------------------------
+# CREATE_POSTGRESQL_TABLE_SPACE
+#
+# This is a required field for PostgreSQL.
+#
+# If you want the installation to create tablespaces using the default sizes,
+# then assign this variable to "1" and also assign the POSTGRESQL_DATA_TABLESPACE_DIR and
+# the POSTGRESQL_INDEX_TABLESPACE_DIR variables.
+#
+# If you would rather create your own tablespaces, assign "0" to this
+# variable and skip to POSTGRESQL_DEFTAB.  Also, consult your PostgreSQL
+# administrator to customize the files required for installation that match
+# your requirements.
+#
+# NOTE: This setting is used for console mode.  When using the GUI installer,
+# this value will need to be re-entered via the GUI.
+# ----------------------------------------------------------------------------
+
+CREATE_POSTGRESQL_TABLE_SPACE=1
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_DATA_TABLESPACE_DIR (DATA FILE DIRECTORY)
+#
+# This is a required field if CREATE_POSTGRESQL_TABLE_SPACE is set to "1".
+#
+# Specify the directory where you wish to place the data files.
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-c:\\Program Files\\PostgreSQL\\9.4\\data
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_DATA_TABLESPACE_DIR=/var/lib/postgresql/data/opentext-media-management/data
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_INDEX_TABLESPACE_DIR (INDEX FILE DIRECTORY)
+#
+# This is a required field if CREATE_POSTGRESQL_TABLE_SPACE is set to "1".
+#
+# Specify the directory where you wish to place the index files.
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+#
+# Example:-c:\\Program Files\\PostgreSQL\\9.4\\index
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_INDEX_TABLESPACE_DIR=/var/lib/postgresql/data/opentext-media-management/index
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_DEFTAB
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the default tablespace for PostgreSQL for users.  This tablespace must
+# exist.  You should consult your PostgreSQL administrator for this information.
+#
+# Example: "pg_default" is typically the PostgreSQL default tablespace.
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_DEFTAB=pg_default
+
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_ADMIN
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the PostgreSQL databse administrator account.
+#
+# Example: "postgres" is typically the PostgreSQL default.
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_ADMIN=postgres
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_ADMIN_PW
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the password for the PostgreSQL administrator account.
+#
+# Example: "postgres" is typically the PostgreSQL default.
+# ----------------------------------------------------------------------------
+
+# This is replaced by an environment variable at startup
+POSTGRESQL_ADMIN_PW=MediaVault
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_USER
+#
+# This is a required field for PostgreSQL.
+#
+# Enter a string for the Media Management Database administrator user.  This user will be
+# created in the PostgreSQL database and will be the owner of the Media Management
+# database schema.
+#
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_USER=tsuper
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_USER_PW
+#
+# This is a required field for PostgreSQL.
+#
+# Enter the password for the Media Management database administrator user.
+# ----------------------------------------------------------------------------
+
+# This is replaced by an environment variable at startup
+POSTGRESQL_USER_PW=MediaVault
+
+# ----------------------------------------------------------------------------
+# POSTGRESQL_DATABASE_NAME
+#
+# This is a required field for PostgreSQL.
+#
+# Specify the name of the database that the Media Management software will use.
+# ----------------------------------------------------------------------------
+
+POSTGRESQL_DATABASE_NAME=otmm
+
+
+# ----------------------------------------------------------------------------
+# END OF POSTGRESQL DATABASE SELECTIONS
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# OTDS Configuration Settings
+# ----------------------------------------------------------------------------
+# OTDS_BASE_URL
+#
+# The base URL of OTDS services.
+#
+# Example:-http://OTDS_SERVER_HOST:8080
+# ----------------------------------------------------------------------------
+
+OTDS_BASE_URL=http://opentext-directory-services:8080
+
+# ----------------------------------------------------------------------------
+# OTMM_USER_PARTITION
+#
+# The default partition name of the user partition created in OTDS
+# ----------------------------------------------------------------------------
+
+OTMM_USER_PARTITION=OTMM
+
+# ----------------------------------------------------------------------------
+# OTMM_RESOURCE_NAME
+#
+# Name of the resource to be created for Media Management in OTDS. A resource with this name shouldn't exist in OTDS while installing on Primary node.
+# In secondary node installation, this value should point out to the same one used on primary
+# ----------------------------------------------------------------------------
+
+OTMM_RESOURCE_NAME=OTMM
+
+# ----------------------------------------------------------------------------
+# OTDS_ADMIN_USERNAME
+#
+# User id of the user in OTDS having admin privileges to create a resource in OTDS. Default is otadmin@otds.admin
+# ----------------------------------------------------------------------------
+
+OTDS_ADMIN_USERNAME=otadmin@otds.admin
+
+# ----------------------------------------------------------------------------
+# OTDS_ADMIN_PASSWORD
+#
+# Password of the user specified in OTDS_ADMIN_USERNAME.
+# ----------------------------------------------------------------------------
+
+# This is replaced by an environment variable at startup
+OTDS_ADMIN_PASSWORD=MediaVault1!
+
+# ----------------------------------------------------------------------------
+# CREATE_USER_AND_PARTITION
+#
+# Create a non-synchronized partition with name specified in OTMM_USER_PARTITION and create tsuper user with password specified in OTMM_DEFAULT_USER_PWD
+# Value set should be set to 1 for creating user and password
+# ----------------------------------------------------------------------------
+
+CREATE_USER_AND_PARTITION=1
+
+# ----------------------------------------------------------------------------
+# OTMM_DEFAULT_USER_PWD
+#
+# Password of the tsuper user to be created in OTDS.
+# ----------------------------------------------------------------------------
+
+# This is replaced by an environment variable at startup
+OTMM_DEFAULT_USER_PWD=MediaVault
+
+# ----------------------------------------------------------------------------
+# CONFIRM_OTMM_DEFAULT_USER_PWD
+#
+# Confirm Password of the tsuper user to be created in OTDS. Should be same as OTMM_DEFAULT_USER_PWD
+# ----------------------------------------------------------------------------
+
+# This is replaced by an environment variable at startup
+CONFIRM_OTMM_DEFAULT_USER_PWD=MediaVault
+
+# ----------------------------------------------------------------------------
+# END OF OTDS Configuration Settings
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Video Configuration Settings
+# ----------------------------------------------------------------------------
+#
+# To use RHOZET as Transcode server set Transcode_selected_Rhozet =1
+# To use FLIPFACTORY as Transcode server set Transcode_selected_FlipFactory=1
+# To use VANTAGE as Transcode server set Transcode_selected_Vantage=1
+# To use FFMPEG as Transcode server set Transcode_selected_FFMpeg=1
+# -----------------------------------------------------------------------------
+
+Transcode_selected_Rhozet=
+Transcode_selected_FlipFactory=
+Transcode_selected_Vantage=
+Transcode_selected_FFMpeg=1
+
+# ---------------------------------------------------------------------------------
+# RHOZET TRANSCODE SELECTIONS
+# Fill out the following values for use with RHOZET
+# If you are not using RHOZET as Transcode server, these values can be left blank.
+# -----------------------------------------------------------------------------------
+
+RHOZET_TRANSCODE_HOST=
+RHOZET_TRANSCODE_PORT=
+
+# ---------------------------------------------------------------------------------
+# FLIPFACTORY TRANSCODE SELECTIONS
+# Fill out the following values for use with FLIPFACTORY
+# If you are not using FLIPFACTORY as Transcode server, these values can be left blank.
+# ----------------------------------------------------------------------------------
+
+FlipFactory_TRANSCODE_HOST=
+FlipFactory_TRANSCODE_PORT=
+TRANSCODE_USER=
+
+# ---------------------------------------------------------------------------------
+# VANTAGE TRANSCODE SELECTIONS
+# Fill out the following values for use with VANTAGE
+# If you are not using VANTAGE as Transcode server, these values can be left blank.
+# ----------------------------------------------------------------------------------
+# Transcode host should be specified as http://<VANTAGE_HOST>:8676
+VANTAGE_TRANSCODE_HOST=
+VANTAGE_TRANSCODE_CATEGORY=
+
+# --------------------------------------------------------------------------------------
+# FFMPEG TRANSCODE SELECTIONS
+# Fill out the following values for use with FFMPEG
+# If you are not using FFMPEG as Transcode server, these values can be left blank.
+# By default FFMPEG will run OTMM server. Can be configured to run on remote server also.
+# ----------------------------------------------------------------------------------
+# Specify FFMPEG_TRANSCODE_HOST entry as localhost if transcoder is running locally
+# otherwise specify hostname:port or ip address:port. For example : FFmpegserver:9000
+
+FFMPEG_TRANSCODE_HOST=ffmpeg:9000
+
+# --------------------------------------------------------------------------------------
+# TARGET_PATH
+# This property refers to network shared path for Transcode Server where
+# transcode output files will be written to.
+# This property is not applicable for FlipFactory. Only applicable to Rhozet, Vantage and
+# FFmpeg.
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# Example:-\\\\<transcode server host>\\<transcode_working_folder>
+
+# --------------------------------------------------------------------------------------
+
+TARGET_PATH =
+
+
+# --------------------------------------------------------------------------------------
+# VIDEO_FILE_STAGING_AREA
+#
+# Path for Media Management to stage video content for transcoding
+#
+# Note: for Windows, you need to use 2 backslashes in your directory path.
+# Example:-\\\\<transcode server host>\\<staging area directory>
+# --------------------------------------------------------------------------------------
+
+VIDEO_FILE_STAGING_AREA=/opt/opentext-media-management-video-staging

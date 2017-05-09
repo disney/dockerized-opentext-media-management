@@ -1,0 +1,50 @@
+# This file has all the common values for all *hosted* environments, i.e. everywhere except localhost
+# This is the intermediate file loaded, after docker-compose.yml and before the .yml for a particular
+
+version: '3'
+
+services:
+  postgres:
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - /mnt/opentext-media-management-repository:/opt/opentext-media-management-repository
+
+  solr:
+    volumes:
+      - solr-index:/opt/solr-index
+      - /mnt/opentext-media-management-repository:/opt/opentext-media-management-repository
+
+  ffmpeg:
+    volumes:
+      - /mnt/opentext-media-management-repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+
+  nginx-for-repository:
+    volumes:
+      - /mnt/opentext-media-management-repository:/usr/share/nginx/html
+
+  opentext-directory-services:
+    volumes:
+      - utilities:/opt/utilities
+      - opentext-directory-services-data:/usr/local/OTDS/opendj
+
+  opentext-media-management-core-app:
+    volumes:
+      - utilities:/opt/utilities
+      - /mnt/opentext-media-management-repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+
+  opentext-media-management-indexer:
+    volumes:
+      - utilities:/opt/utilities
+      - /mnt/opentext-media-management-repository:/opt/opentext-media-management-repository
+      - video-staging:/opt/opentext-media-management-video-staging
+
+  nginx-for-proxy:
+    volumes:
+
+  maildev:
+
+  opentext-utilities:
+    volumes:
+      - utilities:/opt/utilities
